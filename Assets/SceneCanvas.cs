@@ -10,7 +10,8 @@ public class SceneCanvas : MonoBehaviour
     Canvas canvas;
     private void Awake()
     {
-        SceneView.onSceneGUIDelegate += OnSceneGUI;
+        // 2019之前用SceneView.onSceneGUIDelegate
+        SceneView.duringSceneGui += OnSceneGUI;
         canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = SceneView.lastActiveSceneView.camera;
