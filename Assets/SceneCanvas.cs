@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
 [ExecuteInEditMode]
 [RequireComponent(typeof(Canvas))]
 public class SceneCanvas : MonoBehaviour
@@ -27,10 +28,42 @@ public class SceneCanvas : MonoBehaviour
 
     private void OnSceneGUI(SceneView view)
     {
+        CanvasRefresh(view);
+
+        SceneGUI(view);
+        DoEvent();
+    }
+
+    /// <summary>
+    /// 刷新Canvas
+    /// </summary>
+    /// <param name="view"></param>
+    private void CanvasRefresh(SceneView view)
+    {
         // 不知道为什么，需要每次都置空一下，才会成功修改Canvas的位置
         canvas.worldCamera = null;
         canvas.worldCamera = view.camera;
+    }
 
+    private void SceneGUI(SceneView view)
+    {
+        Handles.BeginGUI();
+        GUILayout.BeginArea(view.position); // 规定显示区域为屏幕大小
+
+        if(GUILayout.Button("Hello World"))
+        {
+            Debug.Log("Hello world");
+        }
+
+        GUILayout.EndArea();
+        Handles.EndGUI();
+    }
+
+    /// <summary>
+    /// 处理事件
+    /// </summary>
+    private void DoEvent()
+    {
         Event e = Event.current;
         ///
         /// 这里中间一系列操作
