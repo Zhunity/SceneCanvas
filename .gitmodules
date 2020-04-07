@@ -1,3 +1,6 @@
 [submodule "Assets/SMFrame"]
 	path = Assets/SMFrame
 	url = https://github.com/Hgithubcao/SugarMonthFrame.git
+[submodule "Assets/UnityCsReflection"]
+	path = Assets/UnityCsReflection
+	url = https://github.com/Zhunity/UnityCsReflection.git
