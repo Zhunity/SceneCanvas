@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using UnityEditor.Callbacks;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Canvas))]
@@ -21,7 +21,17 @@ public class SceneCanvas : MonoBehaviour
         canvas.worldCamera = SceneView.lastActiveSceneView.camera;
     }
 
-    private void OnDestroy()
+	[DidReloadScripts]
+	private static void Reload()
+	{
+		SceneCanvas canvas = FindObjectOfType<SceneCanvas>();
+		if(canvas != null)
+		{
+			canvas.Awake();
+		}
+	}
+
+	private void OnDestroy()
     {
         SceneView.duringSceneGui -= OnSceneGUI;
     }
@@ -52,8 +62,12 @@ public class SceneCanvas : MonoBehaviour
 
         if(GUILayout.Button("Hello World"))
         {
-            Debug.Log("Hello world");
-        }
+			LoadObjectOutsideAssets.Load((obj) =>
+			{
+				Debug.Log(obj, obj);
+			});
+
+		}
 
         GUILayout.EndArea();
         Handles.EndGUI();
